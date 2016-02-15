@@ -42,4 +42,6 @@ RUN runtimeDeps=" \
 	&& apk del $buildDeps \
 	&& rm -rf /tmp/*
 
+WORKDIR /var/www
+
 CMD ["php", "-a"]
