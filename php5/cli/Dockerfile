@@ -21,6 +21,7 @@ RUN runtimeDeps=" \
 		autoconf \
 		curl-dev \
 		g++ \
+		git \
 		libmcrypt-dev \
 		libxml2-dev \
 		libxslt-dev \
