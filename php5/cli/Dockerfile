@@ -11,6 +11,7 @@ RUN runtimeDeps=" \
 		$PHP_EXTRA_RUNTIME_DEPS \
 		curl \
 		libmcrypt \
+		libpq \
 		libxml2 \
 		readline \
 		sqlite-libs \
@@ -24,7 +25,10 @@ RUN runtimeDeps=" \
 		libxml2-dev \
 		libxslt-dev \
 		make \
+		mariadb-dev \
 		openssl-dev \
+		pcre-dev \
+		postgresql-dev \
 		re2c \
 		readline-dev \
 		sed \
@@ -47,6 +51,8 @@ RUN runtimeDeps=" \
 		--with-curl \
 		--with-mcrypt \
 		--with-openssl \
+		--with-pdo-mysql \
+		--with-pdo-pgsql \
 		--with-readline \
 		--with-zlib \
 	&& make \
@@ -55,9 +61,14 @@ RUN runtimeDeps=" \
 	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
 	&& mkdir -p /etc/php \
 	&& curl https://raw.githubusercontent.com/php/php-src/PHP-$PHP_VERSION/php.ini-production -o /etc/php/php.ini \
+	&& pecl install apcu=4.0.10 mongo memcache redis \
+	&& echo extension=mongo.so >> /etc/php/php.ini \
+	&& echo extension=memcache.so >> /etc/php/php.ini \
+	&& echo extension=redis.so >> /etc/php/php.ini \
+	&& echo zend_extension=opcache.so >> /etc/php/php.ini \
 	&& apk del $buildDeps \
 	&& rm -rf /tmp/* \
-	&& rm -rf /var/cache/apk/* \
+	&& rm -rf /var/cache/apk/* 
 	
 WORKDIR /var/www
 
