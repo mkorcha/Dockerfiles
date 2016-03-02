@@ -50,6 +50,7 @@ RUN runtimeDeps=" \
 		--enable-cli \
 		--enable-mysqlnd \
 		--with-curl \
+		--with-mbstring \
 		--with-mcrypt \
 		--with-openssl \
 		--with-pdo-mysql \
