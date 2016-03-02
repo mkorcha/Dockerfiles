@@ -1,8 +1,8 @@
 FROM alpine:3.3
 MAINTAINER "Mike Korcha <mikekorcha@gmail.com>"
 
-ENV PHP_VERSION    5.6.18
-ENV PHALCON_COMMIT cf3c1fe
+ENV PHP_VERSION     5.6.18
+ENV PHALCON_VERSION 2.0.10
 
 WORKDIR /tmp
 
@@ -13,6 +13,7 @@ RUN runtimeDeps=" \
 		libmcrypt \
 		libpq \
 		libxml2 \
+		libyaml@testing \
 		readline \
 		sqlite-libs \
 	" && \
@@ -21,10 +22,10 @@ RUN runtimeDeps=" \
 		autoconf \
 		curl-dev \
 		g++ \
-		git \
 		libmcrypt-dev \
 		libxml2-dev \
 		libxslt-dev \
+		libyaml-dev@testing \
 		make \
 		mariadb-dev \
 		openssl-dev \
@@ -37,8 +38,7 @@ RUN runtimeDeps=" \
 		xz-dev \
 	" \
 	&& set -x \
-	&& cat /etc/apk/repositories \
-	&& apk update \
+	&& echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories \
 	&& apk add --update $runtimeDeps $buildDeps \
 	&& curl -fSL http://php.net/get/php-$PHP_VERSION.tar.gz/from/this/mirror -o php-$PHP_VERSION.tar.gz \
 	&& tar -xf php-$PHP_VERSION.tar.gz \
@@ -59,17 +59,21 @@ RUN runtimeDeps=" \
 	&& make \
 	&& make install \
 	&& make clean \
-	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
 	&& mkdir -p /etc/php \
 	&& curl https://raw.githubusercontent.com/php/php-src/PHP-$PHP_VERSION/php.ini-production -o /etc/php/php.ini \
-	&& pecl install apcu=4.0.10 mongo memcache redis \
+	&& pecl install apcu=4.0.10 mongo memcache redis yaml \
 	&& echo extension=mongo.so >> /etc/php/php.ini \
 	&& echo extension=memcache.so >> /etc/php/php.ini \
 	&& echo extension=redis.so >> /etc/php/php.ini \
+	&& echo extension=yaml.so >> /etc/php/php.ini \
 	&& echo zend_extension=opcache.so >> /etc/php/php.ini \
-	&& apk del $buildDeps \
-	&& rm -rf /tmp/* \
-	&& rm -rf /var/cache/apk/* 
+	&& cd ../ \
+	&& curl -L https://github.com/phalcon/cphalcon/archive/phalcon-v$PHALCON_VERSION.tar.gz -o phalcon-v$PHALCON_VERSION.tar.gz \
+	&& tar -xf phalcon-v$PHALCON_VERSION.tar.gz \
+	&& cd cphalcon-phalcon-v$PHALCON_VERSION/build \
+	&& sh install \
+	&& mv /tmp/cphalcon-phalcon-v2.0.10/build/64bits/modules/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/. \
+	&& echo extension=phalcon.so >> /etc/php/php.ini 
 	
 WORKDIR /var/www
 
