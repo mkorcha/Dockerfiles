@@ -46,8 +46,8 @@ RUN runtimeDeps=" \
 		--with-config-file-path=/etc/php \
 		$PHP_EXTRA_CONFIGURE_ARGS \
 		--disable-cgi \
-		--enable-cli \
-		--disable-fpm \
+		--disable-cli \
+		--enable-fpm \
 		--enable-mysqlnd \
 		--with-curl \
 		--with-mbstring \
@@ -60,8 +60,7 @@ RUN runtimeDeps=" \
 	&& make \
 	&& make install \
 	&& make clean \
-	&& mkdir -p /etc/php \
-	&& curl https://raw.githubusercontent.com/php/php-src/PHP-$PHP_VERSION/php.ini-production -o /etc/php/php.ini \
+	&& mkdir -p /etc/php/fpm/pool.d \
 	&& pecl install apcu=4.0.10 mongo memcache redis yaml \
 	&& echo extension=mongo.so >> /etc/php/php.ini \
 	&& echo extension=memcache.so >> /etc/php/php.ini \

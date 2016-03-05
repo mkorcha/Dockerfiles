@@ -1,3 +1,0 @@
-FROM alpine:3.3
-MAINTAINER "Mike Korcha <mikekorcha@gmail.com>"
-
