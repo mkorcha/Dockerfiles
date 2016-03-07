@@ -77,6 +77,7 @@ RUN runtimeDeps=" \
 	&& mv /tmp/cphalcon-phalcon-v2.0.10/build/64bits/modules/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/. \
 	&& echo extension=phalcon.so >> /etc/php/php.ini \
 	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
+	&& { find /usr/local/lib -type f -name '*.so' -exec strip --strip-all '{}' + || true; } \
 	&& apk del $buildDeps \
 	&& rm -rf /tmp/* \
 	&& rm -rf /var/cache/apk/* 
