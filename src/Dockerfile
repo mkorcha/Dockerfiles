@@ -61,8 +61,9 @@ RUN runtimeDeps=" \
 	&& make \
 	&& make install \
 	&& make clean \
-	&& mkdir -p /etc/php \
+	&& mkdir -p /etc/php /usr/local/etc/php-fpm.d \
 	&& curl https://raw.githubusercontent.com/php/php-src/PHP-$PHP_VERSION/php.ini-production -o /etc/php/php.ini \
+	&& cp /usr/local/etc/php-fpm.conf.default /usr/local/etc/php-fpm.d/www.conf \
 	&& pecl install apcu=4.0.10 mongo memcache redis yaml \
 	&& echo extension=mongo.so >> /etc/php/php.ini \
 	&& echo extension=memcache.so >> /etc/php/php.ini \
@@ -77,13 +78,13 @@ RUN runtimeDeps=" \
 	&& mv /tmp/cphalcon-phalcon-v2.0.10/build/64bits/modules/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/. \
 	&& echo extension=phalcon.so >> /etc/php/php.ini \
 	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
-	&& { find /usr/local/lib -type f -name '*.so' -exec strip --strip-all '{}' + || true; } \
+	&& { find /usr/local/lib -type f -name '*.so' -exec strip --strip-all '{}' + || true; } \ 
 	&& apk del $buildDeps \
 	&& rm -rf /tmp/* \
 	&& rm -rf /var/cache/apk/* 
-	
-WORKDIR /var/www
 
-ENTRYPOINT ["php"]
+COPY php-fpm.conf   /usr/local/etc/
+COPY docker.conf    /usr/local/etc/php-fpm.d/
+COPY zz-docker.conf /usr/local/etc/php-fpm.d/
 
-CMD ["-a"]
+CMD ["php-fpm"]
