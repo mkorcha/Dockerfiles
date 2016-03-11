@@ -1,14 +1,14 @@
-php-fpm:
-  image: mkorcha/phalcon
-  volumes:
-   - ".:/var/www"
-
 nginx:
   image: nginx
   links:
    - php-fpm
   ports:
-   - "80:80"
+   - "8080:80"
   volumes:
    - ".:/var/www"
-   - "config/nginx.conf:/etc/nginx/nginx.conf:ro"
+   - "./config/nginx.conf:/etc/nginx/nginx.conf:ro"
+
+php-fpm:
+  image: mkorcha/phalcon
+  volumes:
+   - ".:/var/www"
