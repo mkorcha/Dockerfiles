@@ -90,4 +90,6 @@ COPY php-fpm.conf   /usr/local/etc/
 COPY docker.conf    /usr/local/etc/php-fpm.d/
 COPY zz-docker.conf /usr/local/etc/php-fpm.d/
 
+EXPOSE 9000
+
 CMD ["php-fpm"]
