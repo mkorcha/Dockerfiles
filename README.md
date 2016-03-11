@@ -71,4 +71,3 @@ A (very basic) sample project is available in the `sample` directory. To run it:
 `docker-compose up`
 
 Navigate to your local Docker machine at port 8080 in your browser and see the magic!
-

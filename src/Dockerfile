@@ -74,6 +74,11 @@ RUN runtimeDeps=" \
 	&& echo extension=yaml.so >> /etc/php/php.ini \
 	&& echo zend_extension=opcache.so >> /etc/php/php.ini \
 	&& cd ../ \
+	&& php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php \
+	&& php composer-setup.php \
+	&& php -r "unlink('composer-setup.php');" \
+	&& mv /tmp/composer.phar /usr/local/bin/composer \
+	&& chmod +x /usr/local/bin/composer \
 	&& curl -L https://github.com/phalcon/cphalcon/archive/phalcon-v$PHALCON_VERSION.tar.gz -o phalcon-v$PHALCON_VERSION.tar.gz \
 	&& tar -xf phalcon-v$PHALCON_VERSION.tar.gz \
 	&& cd cphalcon-phalcon-v$PHALCON_VERSION/build \
