@@ -2,7 +2,7 @@ FROM alpine:3.3
 MAINTAINER "Mike Korcha <mikekorcha@gmail.com>"
 
 ARG PHP_VERSION=5.6.21
-ARG PHALCON_VERSION=2.0.10
+ARG PHALCON_VERSION=2.0.11
 ARG PHP_EXTRA_CONFIGURE_ARGS
 ARG PHP_EXTRA_BUILD_DEPS
 ARG PHP_EXTRA_RUNTIME_DEPS
@@ -84,7 +84,7 @@ RUN runtimeDeps=" \
 	&& tar -xf phalcon-v$PHALCON_VERSION.tar.gz \
 	&& cd cphalcon-phalcon-v$PHALCON_VERSION/build \
 	&& sh install \
-	&& mv /tmp/cphalcon-phalcon-v2.0.10/build/64bits/modules/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/. \
+	&& mv /tmp/cphalcon-phalcon-v$PHALCON_VERSION/build/64bits/modules/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/. \
 	&& echo extension=phalcon.so >> /etc/php/php.ini \
 	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
 	&& { find /usr/local/lib -type f -name '*.so' -exec strip --strip-all '{}' + || true; } \ 

@@ -6,9 +6,12 @@ A small (under 50MB) [Docker](https://www.docker.com/) container for PHP with th
 Tags
 ----
 
+The theme of the tags is the format $PHP_VERSION-$PHALCON_VERSION (see below). The latest will correspond to what is below.
+
 | tag                       | versions                   |
 |---------------------------|----------------------------|
-| `latest`, `5.6.21-2.0.10` | PHP 5.6.21, Phalcon 2.0.10 |
+| `latest`, `5.6.21-2.0.11` | PHP 5.6.21, Phalcon 2.0.11 |
+| `5.6.21-2.0.10`           | PHP 5.6.21, Phalcon 2.0.10 |
 | `5.6.20-2.0.10`           | PHP 5.6.20, Phalcon 2.0.10 |
 | `2.6.19-2.0.10`           | PHP 5.6.19, Phalcon 2.0.10 |
 
