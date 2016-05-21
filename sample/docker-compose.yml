@@ -1,14 +1,16 @@
-nginx:
-  image: nginx
-  links:
-   - php-fpm
-  ports:
-   - "8080:80"
-  volumes:
-   - ".:/var/www"
-   - "./config/nginx.conf:/etc/nginx/nginx.conf:ro"
+version: '2'
+services:
+  nginx:
+    image: nginx
+    links:
+     - php-fpm
+    ports:
+     - "8080:80"
+    volumes:
+     - ".:/var/www"
+     - "./config/nginx.conf:/etc/nginx/nginx.conf:ro"
 
-php-fpm:
-  image: mkorcha/phalcon
-  volumes:
-   - ".:/var/www"
+  php-fpm:
+    image: mkorcha/phalcon
+    volumes:
+     - ".:/var/www"

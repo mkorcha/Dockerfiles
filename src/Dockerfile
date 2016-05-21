@@ -2,7 +2,7 @@ FROM alpine:3.3
 MAINTAINER "Mike Korcha <mikekorcha@gmail.com>"
 
 ARG PHP_VERSION=5.6.21
-ARG PHALCON_VERSION=2.0.11
+ARG PHALCON_VERSION=2.0.13
 ARG PHP_EXTRA_CONFIGURE_ARGS
 ARG PHP_EXTRA_BUILD_DEPS
 ARG PHP_EXTRA_RUNTIME_DEPS
@@ -14,21 +14,21 @@ RUN runtimeDeps=" \
 		curl \
 		libmcrypt \
 		libpq \
+		libtool \
 		libxml2 \
-		libyaml \
 		readline \
 		sqlite-libs \
 	" && \
 	buildDeps=" \
 		$PHP_EXTRA_BUILD_DEPS \
 		autoconf \
+		automake \
 		curl-dev \
 		findutils \
 		g++ \
 		libmcrypt-dev \
 		libxml2-dev \
 		libxslt-dev \
-		libyaml-dev \
 		make \
 		mariadb-dev \
 		openssl-dev \
@@ -38,11 +38,16 @@ RUN runtimeDeps=" \
 		readline-dev \
 		sed \
 		tar \
+		unzip \
 		xz-dev \
 	" \
 	&& set -x \
 	&& echo "http://dl-4.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories \
 	&& apk add --update $runtimeDeps $buildDeps \
+	&& curl -fSL https://bitbucket.org/xi/libyaml/get/2b9156756423.zip -o libyaml.zip \
+	&& unzip libyaml.zip \
+	&& cd xi-libyaml-2b9156756423 \
+	&& ./bootstrap && ./configure && make && make install && cd ../ \
 	&& curl -fSL http://php.net/get/php-$PHP_VERSION.tar.gz/from/this/mirror -o php-$PHP_VERSION.tar.gz \
 	&& tar -xf php-$PHP_VERSION.tar.gz \
 	&& cd php-$PHP_VERSION \
