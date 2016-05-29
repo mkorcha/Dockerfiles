@@ -10,8 +10,8 @@ The theme of the tags is the format $PHP_VERSION-$PHALCON_VERSION (see below). T
 
 | tag                       | versions                   |
 |---------------------------|----------------------------|
-| `latest`, `5.6.21-2.0.13` | PHP 5.6.21, Phalcon 2.0.13 |
-| `5.6.21-2.0.11`           | PHP 5.6.21, Phalcon 2.0.11 |
+| `latest`, `5.6.22-2.0.13` | PHP 5.6.22, Phalcon 2.0.13 |
+| `5.6.21-2.0.13`           | PHP 5.6.21, Phalcon 2.0.13 |
 
 What is PHP?
 ------------
