@@ -1,7 +1,7 @@
 FROM alpine:3.3
 MAINTAINER "Mike Korcha <mikekorcha@gmail.com>"
 
-ARG PHP_VERSION=5.6.23
+ARG PHP_VERSION=5.6.24
 ARG PHALCON_VERSION=2.0.13
 ARG PHP_EXTRA_CONFIGURE_ARGS
 ARG PHP_EXTRA_BUILD_DEPS
@@ -72,7 +72,7 @@ RUN runtimeDeps=" \
 	&& mkdir -p /etc/php /usr/local/etc/php-fpm.d \
 	&& curl https://raw.githubusercontent.com/php/php-src/PHP-$PHP_VERSION/php.ini-production -o /etc/php/php.ini \
 	&& cp /usr/local/etc/php-fpm.conf.default /usr/local/etc/php-fpm.d/www.conf \
-	&& pecl install apcu-4.0.10 mongo memcache redis yaml \
+	&& pecl install apcu-4.0.10 mongo memcache redis-2.2.8 yaml \
 	&& echo extension=apcu.so >> /etc/php/php.ini \
 	&& echo extension=mongo.so >> /etc/php/php.ini \
 	&& echo extension=memcache.so >> /etc/php/php.ini \
