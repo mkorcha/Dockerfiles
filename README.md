@@ -1,16 +1,17 @@
 docker-phalcon
 ==============
 
-A small (under 50MB) [Docker](https://www.docker.com/) container for PHP with the Phalcon framework installed.
+A small [Docker](https://www.docker.com/) container for PHP with the Phalcon framework installed.
 
-Tags
-----
+Versions
+--------
 
-The theme of the tags is the format $PHP_VERSION-$PHALCON_VERSION (see below). The latest will correspond to what is below.
+Two versions are maintained - one for PHP5 and one for PHP7. Both have the latest version of Phalcon installed. Tags are of the form $PHP_VERSION-$PHALCON_VERSION.
 
 | tag                       | versions                   |
 |---------------------------|----------------------------|
-| `latest`, `5.6.24-2.0.13` | PHP 5.6.24, Phalcon 2.0.13 |
+| `latest`, `7.0.11-3.0.1`  | PHP 7.0.11, Phalcon 3.0.1  |
+| `5.6.26-3.0.1`            | PHP 5.6.26, Phalcon 3.0.1  |
 
 What is PHP?
 ------------
@@ -33,7 +34,7 @@ What is Phalcon?
 Why use this?
 -------------
 
-* You want a fast, lightweight PHP image (under 50MB with the entire base PHP installating, compared to the [official image](https://hub.docker.com/_/php/) being almost 500MB)
+* You want a fast, lightweight PHP image (which is significantly smaller than the [official image](https://hub.docker.com/_/php/))
 * You want to use the Phalcon framework without messing with compilation or PPAs
 * Everything else is dockerized, why not this?
 
