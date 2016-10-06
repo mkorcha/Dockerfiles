@@ -1,8 +1,8 @@
-FROM alpine:3.3
+FROM alpine:3.4
 MAINTAINER "Mike Korcha <mikekorcha@gmail.com>"
 
-ARG PHP_VERSION=5.6.24
-ARG PHALCON_VERSION=2.0.13
+ARG PHP_VERSION=5.6.26
+ARG PHALCON_VERSION=3.0.1
 ARG PHP_EXTRA_CONFIGURE_ARGS
 ARG PHP_EXTRA_BUILD_DEPS
 ARG PHP_EXTRA_RUNTIME_DEPS
@@ -23,10 +23,11 @@ RUN runtimeDeps=" \
 		$PHP_EXTRA_BUILD_DEPS \
 		autoconf \
 		automake \
+		bison \
 		curl-dev \
+		file \
 		findutils \
 		g++ \
-		libmcrypt-dev \
 		libxml2-dev \
 		libxslt-dev \
 		make \
@@ -42,6 +43,7 @@ RUN runtimeDeps=" \
 		xz-dev \
 	" \
 	&& set -x \
+	&& addgroup php && adduser -S -G php php \
 	&& echo "http://dl-4.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories \
 	&& apk add --update $runtimeDeps $buildDeps \
 	&& curl -fSL https://bitbucket.org/xi/libyaml/get/2b9156756423.zip -o libyaml.zip \
@@ -59,8 +61,6 @@ RUN runtimeDeps=" \
 		--enable-fpm \
 		--enable-mysqlnd \
 		--with-curl \
-		--with-mbstring \
-		--with-mcrypt \
 		--with-openssl \
 		--with-pdo-mysql \
 		--with-pdo-pgsql \
@@ -85,12 +85,12 @@ RUN runtimeDeps=" \
 	&& php -r "unlink('composer-setup.php');" \
 	&& mv /tmp/composer.phar /usr/local/bin/composer \
 	&& chmod +x /usr/local/bin/composer \
-	&& curl -L https://github.com/phalcon/cphalcon/archive/phalcon-v$PHALCON_VERSION.tar.gz -o phalcon-v$PHALCON_VERSION.tar.gz \
+	&& curl -L https://github.com/phalcon/cphalcon/archive/v$PHALCON_VERSION.tar.gz -o phalcon-v$PHALCON_VERSION.tar.gz \
 	&& tar -xf phalcon-v$PHALCON_VERSION.tar.gz \
-	&& cd cphalcon-phalcon-v$PHALCON_VERSION/build \
+	&& cd cphalcon-$PHALCON_VERSION/build \
 	&& sh install \
-	&& mv /tmp/cphalcon-phalcon-v$PHALCON_VERSION/build/64bits/modules/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/. \
 	&& echo extension=phalcon.so >> /etc/php/php.ini \
+	&& rm /usr/local/etc/php-fpm.d/www.conf \
 	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
 	&& { find /usr/local/lib -type f -name '*.so' -exec strip --strip-all '{}' + || true; } \ 
 	&& apk del $buildDeps \
