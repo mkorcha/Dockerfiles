@@ -10,8 +10,8 @@ Two versions are maintained - one for PHP5 and one for PHP7. Both have the lates
 
 | tag                       | versions                   |
 |---------------------------|----------------------------|
-| `latest`, `7.0.13-3.0.2`  | PHP 7.0.13, Phalcon 3.0.2  |
-| `5.6.28-3.0.2`            | PHP 5.6.28, Phalcon 3.0.2  |
+| `latest`, `7.0.15-3.0.3`  | PHP 7.0.15 Phalcon 3.0.3   |
+| `5.6.30-3.0.3`            | PHP 5.6.30, Phalcon 3.0.3  |
 
 What is PHP?
 ------------

@@ -3,9 +3,9 @@
 name="mkorcha/phalcon"
 
 # latest versions
-php5_ver="5.6.28"
-php7_ver="7.0.13"
-phalcon_ver="3.0.2"
+php5_ver="5.6.30"
+php7_ver="7.0.15"
+phalcon_ver="3.0.3"
 
 # php7
 docker build -t ${name}:latest -t ${name}:${php7_ver}-${phalcon_ver} --build-arg PHP_VERSION="${php7_ver}" --build-arg PHALCON_VERSION="${phalcon_ver}" --rm=true --no-cache=true --pull=true -f src/Dockerfile.php7 src
