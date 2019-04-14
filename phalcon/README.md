@@ -1,6 +1,8 @@
 docker-phalcon
 ==============
 
+**Warning** - This is very out of date! Should only be used for reference until I get around to updating it (the next time I get a chance to play with Phalcon, most likely)
+
 A small [Docker](https://www.docker.com/) container for PHP with the Phalcon framework installed.
 
 Versions
